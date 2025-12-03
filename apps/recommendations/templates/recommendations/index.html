@@ -1,0 +1,69 @@
+{% extends "layouts/base.html" %}
+
+{% block title %}Recommendations - QorA{% endblock %}
+
+{% block content %}
+<div style="max-width: 1000px; margin: 0 auto; padding: 20px;">
+    <h1>Recommended for You</h1>
+    
+    <div style="display: flex; gap: 40px; margin-top: 20px;">
+        
+        <div style="flex: 1;">
+            <h3>Who to Follow</h3>
+            {% if recommended_users %}
+                <div class="user-list">
+                    {% for rec_user in recommended_users %}
+                        <div style="background: white; padding: 15px; margin-bottom: 10px; border-radius: 8px; border: 1px solid #ddd; display: flex; justify-content: space-between; align-items: center;">
+                            <div>
+                                <a href="{% url 'profile' rec_user.username %}" style="font-weight: bold; text-decoration: none; color: #333;">
+                                    @{{ rec_user.username }}
+                                </a>
+                                {% if rec_user.first_name %}
+                                    <div style="color: #666; font-size: 0.9em;">{{ rec_user.first_name }} {{ rec_user.last_name }}</div>
+                                {% endif %}
+                            </div>
+                            
+                            <form action="{% url 'follow_user' rec_user.id %}" method="POST">
+                                {% csrf_token %}
+                                <button type="submit" style="background: #2e69ff; color: white; border: none; padding: 5px 15px; border-radius: 20px; cursor: pointer;">
+                                    Follow
+                                </button>
+                            </form>
+                        </div>
+                    {% endfor %}
+                </div>
+            {% else %}
+                <p style="color: #666;">No user recommendations yet. Try following more people!</p>
+            {% endif %}
+        </div>
+
+        <div style="flex: 1;">
+            <h3>Topics You Might Like</h3>
+            {% if recommended_topics %}
+                <div class="topic-list">
+                    {% for topic in recommended_topics %}
+                        <div style="background: white; padding: 15px; margin-bottom: 10px; border-radius: 8px; border: 1px solid #ddd; display: flex; justify-content: space-between; align-items: center;">
+                            <div>
+                                <a href="{% url 'topic_detail' topic.id %}" style="font-weight: bold; text-decoration: none; color: #333;">
+                                    {{ topic.name }}
+                                </a>
+                                <div style="color: #666; font-size: 0.9em;">{{ topic.description|truncatewords:5 }}</div>
+                            </div>
+                            
+                            <form action="{% url 'follow_topic' topic.id %}" method="POST">
+                                {% csrf_token %}
+                                <button type="submit" style="background: #2e69ff; color: white; border: none; padding: 5px 15px; border-radius: 20px; cursor: pointer;">
+                                    Follow
+                                </button>
+                            </form>
+                        </div>
+                    {% endfor %}
+                </div>
+            {% else %}
+                <p style="color: #666;">No topic recommendations yet. Try following some topics!</p>
+            {% endif %}
+        </div>
+
+    </div>
+</div>
+{% endblock %}

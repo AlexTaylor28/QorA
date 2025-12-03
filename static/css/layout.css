@@ -1,0 +1,51 @@
+/* --- Header --- */
+.site-header {
+    background: var(--bg-light);
+    height: var(--header-height);
+    border-bottom: 1px solid var(--border-color);
+    display: flex;
+    align-items: center;
+    padding: 0 var(--spacing-xl);
+    justify-content: space-between;
+    position: sticky;
+    top: 0;
+    z-index: 100;
+}
+
+.logo {
+    font-size: 2.5rem;
+    font-weight: 900;
+    color: var(--primary-color);
+    letter-spacing: -0.5px;
+}
+
+.header-nav {
+    display: flex;
+    align-items: center;
+    gap: var(--spacing-md);
+}
+
+/* --- Footer --- */
+.site-footer {
+    background: var(--bg-light);
+    border-top: 1px solid var(--border-color);
+    padding: var(--spacing-md);
+    text-align: center;
+    color: var(--text-muted);
+    font-size: 1rem;
+    margin-top: auto;
+}
+
+/* --- Grids --- */
+/* Two column layout for Home/Feed */
+.layout-grid {
+    display: grid;
+    grid-template-columns: 1fr 300px; /* Main content | Sidebar */
+    gap: var(--spacing-xl);
+}
+
+@media (max-width: 768px) {
+    .layout-grid {
+        grid-template-columns: 1fr;
+    }
+}

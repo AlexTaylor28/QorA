@@ -1,0 +1,53 @@
+{% extends "layouts/base.html" %}
+
+{% block title %} Ask a Question - QorA {% endblock %}
+
+{% block content %}
+<div class="form-container-sm">
+    <div class="card">
+        <h1 class="form-header">
+            Ask a Public Question
+        </h1>
+        
+        <form method="post">
+            {% csrf_token %}
+            
+            <div class="form-group">
+                <label for="{{ form.title.id_for_label }}" class="form-label">Title</label>
+                {{ form.title }}
+                {% if form.title.errors %}
+                    <div class="form-error-msg">
+                        {{ form.title.errors }}
+                    </div>
+                {% endif %}
+            </div>
+
+            <div class="form-group">
+                <label for="{{ form.content.id_for_label }}" class="form-label">Content</label>
+                {{ form.content }}
+                {% if form.content.errors %}
+                    <div class="form-error-msg">
+                        {{ form.content.errors }}
+                    </div>
+                {% endif %}
+            </div>
+
+            <div class="form-group-lg">
+                <label class="form-label">Topics</label>
+                <div class="topic-scroll-container">
+                    {{ form.topics }}
+                </div>
+                {% if form.topics.errors %}
+                    <div class="form-error-msg">
+                        {{ form.topics.errors }}
+                    </div>
+                {% endif %}
+            </div>
+
+            <button type="submit" class="btn btn-primary btn-block">
+                Publish Question
+            </button>
+        </form>
+    </div>
+</div>
+{% endblock %}

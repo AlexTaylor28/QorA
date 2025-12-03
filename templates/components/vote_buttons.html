@@ -1,0 +1,24 @@
+<div class="vote-widget">
+    <!-- Upvote Form -->
+    <form action="{% url vote_url_name obj.id %}" method="POST">
+        {% csrf_token %}
+        <input type="hidden" name="vote_type" value="UP">
+        <button type="submit" class="vote-btn {% if user_vote_status == 'UPVOTED' %}active{% endif %}" title="Upvote" aria-label="Upvote">
+            ▲
+        </button>
+    </form>
+    
+    <!-- Count -->
+    <span class="vote-count">
+        {{ obj.upvote_count|default:"0" }}
+    </span>
+
+    <!-- Downvote Form -->
+    <form action="{% url vote_url_name obj.id %}" method="POST">
+        {% csrf_token %}
+        <input type="hidden" name="vote_type" value="DOWN">
+        <button type="submit" class="vote-btn {% if user_vote_status == 'DOWNVOTED' %}active{% endif %}" title="Downvote" aria-label="Downvote">
+            ▼
+        </button>
+    </form>
+</div>

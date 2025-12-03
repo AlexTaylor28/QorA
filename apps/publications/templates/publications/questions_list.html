@@ -1,0 +1,54 @@
+<div class="feed-list">
+    {% for question in questions %}
+      <div class="card">
+        
+        <h3 class="card-title">
+            <a href="{% url 'question_detail' question.id %}">
+                {{ question.title }}
+            </a>
+        </h3>
+        
+        <div class="content-wrapper">
+            <!-- Vote Component -->
+            <div class="vote-section">
+                {% if user.is_authenticated %}
+                    {% include "components/vote_buttons.html" with obj=question vote_url_name="vote_question" user_vote_status=question.user_vote_status %}
+                {% else %}
+                    <!-- Unauthenticated: Show buttons that redirect to login -->
+                    <div class="vote-widget">
+                        <a href="{% url 'login' %}?next={{ request.path }}" class="vote-btn" title="Login to upvote">
+                            ▲
+                        </a>
+                        
+                        <span class="vote-count">
+                            {{ question.upvote_count|default:"0" }}
+                        </span>
+
+                        <a href="{% url 'login' %}?next={{ request.path }}" class="vote-btn" title="Login to downvote">
+                            ▼
+                        </a>
+                    </div>
+                {% endif %}
+            </div>
+
+            <!-- Content Preview -->
+            <div class="text-content">
+                <p>
+                    {{ question.content|truncatewords:30 }}
+                </p>
+                
+                <div class="card-meta">
+                    <span>Asked by <a href="{% url 'profile' question.user.username %}" class="highlight-link">@{{ question.user.username }}</a></span>
+                    <span>•</span>
+                    <span>{{ question.timestamp|date:"M d, Y" }}</span>
+                </div>
+            </div>
+        </div>
+       
+      </div>
+    {% empty %}
+        <div class="empty-state">
+            {{ empty_message|default:"No questions found." }}
+        </div>
+    {% endfor %}
+</div>

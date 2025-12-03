@@ -1,0 +1,90 @@
+{% extends "layouts/base.html" %}
+
+{% block title %} 
+    {{ page_title }} - QorA
+{% endblock %}
+
+{% block content %}
+
+<div class="layout-grid">
+    
+    <!-- Left Column: The Feed -->
+    <div class="main-column">
+        <div class="page-header">
+            <h1>{{ page_title }}</h1>
+        </div>
+
+        {% include 'publications/questions_list.html' with questions=questions empty_message="Your feed is empty. Follow people or topics to see questions here!" %}
+    </div>
+
+    <!-- Right Column: Sidebar -->
+    {% if user.is_authenticated %}
+    <aside class="sidebar-column">
+        
+        <!-- Recommendation Card: Users -->
+        <div class="card">
+            <h3 class="sidebar-card-header">Who to Follow</h3>
+            
+            {% if recommended_users %}
+                <div class="rec-list">
+                    {% for rec_user in recommended_users %}
+                    <div class="rec-item">
+                        <div class="rec-info">
+                            <a href="{% url 'profile' rec_user.username %}" class="rec-username">
+                                @{{ rec_user.username }}
+                            </a>
+                            {% if rec_user.first_name %}
+                                <span class="rec-meta">
+                                    {{ rec_user.first_name }} {{ rec_user.last_name }}
+                                </span>
+                            {% endif %}
+                        </div>
+                        
+                        <button 
+                            class="btn btn-sm btn-outline js-follow-btn" 
+                            data-action="follow"
+                            data-follow-url="{% url 'follow_user' rec_user.id %}"
+                            data-unfollow-url="{% url 'unfollow_user' rec_user.id %}">
+                            Follow
+                        </button>
+                    </div>
+                    {% endfor %}
+                </div>
+            {% else %}
+                <p class="text-muted text-center">No new users to recommend.</p>
+            {% endif %}
+        </div>
+
+        <!-- Recommendation Card: Topics -->
+        <div class="card">
+            <h3 class="sidebar-card-header">Topics for You</h3>
+
+            {% if recommended_topics %}
+                <div class="rec-list">
+                    {% for topic in recommended_topics %}
+                    <div class="rec-item">
+                        <div class="rec-info">
+                            <a href="{% url 'topic_detail' topic.id %}" class="rec-username">
+                                {{ topic.name }}
+                            </a>
+                        </div>
+                        
+                        <button 
+                            class="btn btn-sm btn-outline js-follow-btn" 
+                            data-action="follow"
+                            data-follow-url="{% url 'follow_topic' topic.id %}"
+                            data-unfollow-url="{% url 'unfollow_topic' topic.id %}">
+                            Follow
+                        </button>
+                    </div>
+                    {% endfor %}
+                </div>
+            {% else %}
+                <p class="text-muted text-center">No new topics to recommend.</p>
+            {% endif %}
+        </div>
+
+    </aside>
+    {% endif %}
+</div>
+{% endblock %}

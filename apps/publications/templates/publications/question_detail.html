@@ -1,0 +1,103 @@
+{% extends "layouts/base.html" %}
+
+{% block title %} 
+    {{ question.title }} - QorA
+{% endblock %}
+
+{% block content %}
+<div class="detail-container">
+    
+    <!-- Question Card -->
+    <div class="card">
+        <h1 class="card-title detail-headline">
+            {{ question.title }}
+        </h1>
+        
+        <div class="content-wrapper">
+            <!-- Vote Buttons -->
+            <div class="vote-section">
+                 {% include "components/vote_buttons.html" with obj=question vote_url_name="vote_question" user_vote_status=question.user_vote_status %}
+            </div>
+
+            <!-- Question Body -->
+            <div class="text-content">
+                <div class="content-body">
+                    {{ question.content|linebreaks }}
+                </div>
+
+                {% if topics %}
+                <div class="topic-list">
+                    {% for topic in topics %}
+                        <a href="{% url 'topic_detail' topic.id %}" class="topic-tag">
+                            {{ topic.name }}
+                        </a>
+                    {% endfor %}
+                </div>
+                {% endif %}
+                
+                <div class="content-footer">
+                    Asked by <a href="{% url 'profile' question.user.username %}" class="highlight-link">@{{ question.user.username }}</a>
+                    on {{ question.timestamp|date:"F j, Y" }}
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Answer Form -->
+    {% if user.is_authenticated %}
+    <div class="card card-highlight">
+        <h3 class="card-title">Your Answer</h3>
+        <form method="POST">
+            {% csrf_token %}
+            <div class="form-group">
+                {{ answer_form.content }}
+            </div>
+            <button type="submit" class="btn btn-primary">
+                Post Answer
+            </button>
+        </form>
+    </div>
+    {% else %}
+    <div class="auth-prompt">
+        <a href="{% url 'login' %}?next={{ request.path }}" style="font-weight: bold;">Log in</a> to answer this question.
+    </div>
+    {% endif %}
+
+    <!-- Answers List -->
+    <div>
+        <h2 class="section-header">
+            {{ answers|length }} Answer{{ answers|length|pluralize }}
+        </h2>
+
+        <div class="feed-list">
+            {% for answer in answers %}
+                <div class="card">
+                    <div class="content-wrapper">
+                        <!-- Vote Buttons -->
+                        <div class="vote-section">
+                            {% include "components/vote_buttons.html" with obj=answer vote_url_name="vote_answer" user_vote_status=answer.user_vote_status %}
+                        </div>
+
+                        <!-- Answer Body -->
+                        <div class="text-content">
+                            <div class="card-meta answer-meta">
+                                <a href="{% url 'profile' answer.user.username %}" class="highlight-link">@{{ answer.user.username }}</a>
+                                <span>• {{ answer.timestamp|timesince }} ago</span>
+                            </div>
+
+                            <div class="content-body answer-body">
+                                {{ answer.content|linebreaks }}
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            {% empty %}
+                <p class="empty-state">
+                    No answers yet. Be the first to answer!
+                </p>
+            {% endfor %}
+        </div>
+    </div>
+
+</div>
+{% endblock %}

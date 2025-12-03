@@ -1,0 +1,18 @@
+<header class="site-header">
+    <a href="/" class="logo">QorA</a>
+    
+    <nav class="header-nav">
+        {% if user.is_authenticated %}
+            <a href="{% url 'ask_question' %}" class="btn btn-primary">Ask Question</a>
+            <a href="{% url 'profile' user.username %}" class="btn btn-outline">{{ user.username }}</a>
+            
+            <form method="POST" action="{% url 'logout' %}" style="display:inline;">
+                {% csrf_token %}
+                <button type="submit" class="btn btn-sm" style="border:none; background:none; text-decoration:underline;">Logout</button>
+            </form>
+        {% else %}
+            <a href="{% url 'login' %}" class="btn btn-outline">Login</a>
+            <a href="{% url 'register' %}" class="btn btn-primary">Sign Up</a>
+        {% endif %}
+    </nav>
+</header>

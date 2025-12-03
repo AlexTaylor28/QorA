@@ -1,0 +1,64 @@
+{% extends "layouts/base.html" %}
+
+{% block title %} 
+    Topic: {{ topic.name }} - QorA
+{% endblock %}
+
+{% block content %}
+<div class="layout-grid">
+
+    <!-- Left Column: Questions Feed -->
+    <div class="main-column">
+        <div class="page-header">
+            <h1>Questions related to {{ topic.name }}</h1>
+        </div>
+        
+        <!-- Reuse the standard list -->
+        {% include 'publications/questions_list.html' with questions=questions empty_message="No questions found for this topic yet." %}
+    </div>
+
+    <!-- Right Column: Topic Info Sidebar -->
+    <aside class="sidebar-column">
+        <div class="card topic-card">
+            
+            <h2 class="topic-name">{{ topic.name }}</h2>
+            
+            {% if topic.description %}
+                <p class="topic-description">{{ topic.description }}</p>
+            {% endif %}
+            
+            <!-- Stats (Reusing profile-stats classes for consistency) -->
+            <div class="profile-stats">
+                <div class="stat-item">
+                    <span class="stat-value">{{ topic_follower_count }}</span>
+                    <span class="stat-label">Followers</span>
+                </div>
+            </div>
+
+            <!-- Action Buttons -->
+            {% if user.is_authenticated %}
+                <div>
+                    {% if is_following %}
+                        <button 
+                            class="btn btn-outline btn-block js-follow-btn" 
+                            data-action="unfollow"
+                            data-follow-url="{% url 'follow_topic' topic.id %}"
+                            data-unfollow-url="{% url 'unfollow_topic' topic.id %}">
+                            Unfollow Topic
+                        </button>
+                    {% else %}
+                        <button 
+                            class="btn btn-secondary btn-block js-follow-btn" 
+                            data-action="follow"
+                            data-follow-url="{% url 'follow_topic' topic.id %}"
+                            data-unfollow-url="{% url 'unfollow_topic' topic.id %}">
+                            Follow Topic
+                        </button>
+                    {% endif %}
+                </div>
+            {% endif %}
+        </div>
+    </aside>
+
+</div>
+{% endblock %}

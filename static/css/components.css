@@ -1,0 +1,421 @@
+/* --- Buttons --- */
+.btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    padding: 8px 16px;
+    border-radius: 20px;
+    font-weight: 600;
+    font-size: 0.9rem;
+    cursor: pointer;
+    border: 1px solid transparent;
+    transition: all 0.2s ease;
+    line-height: 1;
+}
+
+.btn-primary {
+    background-color: var(--primary-color);
+    color: white;
+}
+.btn-primary:hover { background-color: var(--primary-hover); }
+
+.btn-secondary {
+    background-color: var(--secondary-color);
+    color: white;
+}
+.btn-secondary:hover { background-color: var(--secondary-hover); }
+
+.btn-outline {
+    background-color: transparent;
+    border-color: var(--secondary-color);
+    color: var(--secondary-color);
+}
+.btn-outline:hover { background-color: #e1ecf4; }
+
+.btn-sm {
+    padding: 4px 12px;
+    font-size: 0.8rem;
+}
+
+.btn-block {
+    width: 100%;
+    display: flex;
+}
+
+/* --- Cards --- */
+.card {
+    background: var(--bg-white);
+    border: 1px solid var(--border-color);
+    border-radius: var(--border-radius);
+    padding: var(--spacing-md);
+    margin-bottom: var(--spacing-md);
+    box-shadow: 0 1px 2px rgba(0,0,0,0.03);
+}
+
+.card:hover {
+    box-shadow: 0 4px 12px rgba(0,0,0,0.08);
+}
+
+.card-title {
+    font-size: 1.1rem;
+    margin-bottom: var(--spacing-xs);
+    color: var(--text-main);
+    display: block;
+}
+
+.card-meta {
+    font-size: 0.85rem;
+    color: var(--text-muted);
+    display: flex;
+    align-items: center;
+    gap: var(--spacing-xs);
+    margin-top: var(--spacing-sm);
+}
+
+.sidebar-card-header {
+    font-size: 0.8rem;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    color: var(--text-muted);
+    border-bottom: 1px solid var(--border-color);
+    padding-bottom: var(--spacing-sm);
+    margin-bottom: var(--spacing-md);
+    font-weight: 700;
+}
+
+/* --- Profile Card --- */
+.profile-card {
+    text-align: center;
+}
+
+.profile-avatar {
+    width: 80px;
+    height: 80px;
+    background-color: var(--bg-light);
+    border-radius: 50%;
+    margin: 0 auto var(--spacing-md);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 2rem;
+    font-weight: 700;
+    color: var(--text-muted);
+    border: 2px solid var(--border-color);
+    text-transform: uppercase;
+}
+
+.profile-name {
+    font-size: 1.4rem;
+    margin-bottom: 4px;
+    font-weight: 700;
+}
+
+.profile-stats {
+    display: flex;
+    justify-content: center;
+    gap: var(--spacing-lg);
+    margin: var(--spacing-md) 0;
+    border-top: 1px solid var(--border-color);
+    border-bottom: 1px solid var(--border-color);
+    padding: var(--spacing-md) 0;
+}
+
+.stat-item {
+    text-align: center;
+}
+
+.stat-value {
+    font-size: 1.2rem;
+    font-weight: 700;
+    display: block;
+    line-height: 1.2;
+}
+
+.stat-label {
+    font-size: 0.75rem;
+    color: var(--text-muted);
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+}
+
+.profile-joined {
+    font-size: 0.9rem;
+    color: var(--text-muted);
+    margin-bottom: var(--spacing-md);
+}
+
+/* --- Recommendation Items --- */
+.rec-list {
+    display: flex;
+    flex-direction: column;
+    gap: var(--spacing-md);
+}
+
+.rec-item {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.rec-info {
+    line-height: 1.3;
+}
+
+.rec-username {
+    font-weight: 700;
+    font-size: 0.95rem;
+    display: block;
+    color: var(--text-main);
+}
+
+.rec-meta {
+    font-size: 0.8rem;
+    color: var(--text-muted);
+}
+
+/* --- Vote Widget --- */
+.vote-widget {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    background: var(--bg-light);
+    padding: 4px;
+    border-radius: 4px;
+    min-width: 40px;
+}
+
+.vote-btn {
+    background: none;
+    border: none;
+    color: var(--text-muted);
+    font-size: 1.2rem;
+    cursor: pointer;
+    padding: 0;
+    line-height: 1;
+}
+.vote-btn:hover { color: var(--primary-hover); }
+.vote-btn.active { color: var(--secondary-color); }
+
+.vote-count {
+    font-weight: bold;
+    font-size: 0.9rem;
+    margin: 4px 0;
+}
+
+/* --- Forms & Auth --- */
+.form-container-md {
+    max-width: 700px;
+    margin: 0 auto;
+}
+
+.form-container-sm {
+    max-width: 500px;
+    margin: 0 auto;
+}
+
+.form-header {
+    font-size: 1.5rem;
+    margin-bottom: 1.5rem;
+    border-bottom: 1px solid var(--border-color);
+    padding-bottom: 1rem;
+    display: block;
+    font-weight: 700;
+    color: var(--text-main);
+}
+
+.form-group {
+    margin-bottom: 1rem;
+}
+
+.form-group-lg {
+    margin-bottom: 1.5rem;
+}
+
+.form-label {
+    display: block;
+    margin-bottom: 0.5rem;
+    font-weight: 600;
+    color: var(--text-main);
+}
+
+.form-error-msg {
+    color: var(--primary-color);
+    font-size: 0.85rem;
+    margin-top: 5px;
+}
+
+.form-help-text {
+    color: var(--text-muted);
+    display: block;
+    margin-top: 4px;
+    font-size: 0.8rem;
+}
+
+.topic-scroll-container {
+    max-height: 200px;
+    overflow-y: auto;
+    border: 1px solid var(--border-color);
+    padding: 10px;
+    border-radius: var(--border-radius);
+    background-color: var(--bg-body);
+}
+
+/* Auth Specifics */
+.auth-footer {
+    text-align: center; 
+    margin-top: 1.5rem; 
+    font-size: 0.9rem;
+}
+
+.link-highlight {
+    color: var(--secondary-color);
+    font-weight: 600;
+}
+
+/* Messages / Alerts */
+.messages-container {
+    margin-top: 20px;
+}
+
+.alert-info {
+    background-color: #e3f2fd; 
+    color: #0d47a1; 
+    border-color: #90caf9;
+    padding: 10px;
+}
+
+/* --- Topic Specifics --- */
+.topic-card {
+    text-align: center;
+}
+
+.topic-name {
+    font-size: 1.4rem;
+    font-weight: 700;
+    margin-bottom: var(--spacing-sm);
+    color: var(--text-main);
+}
+
+.topic-description {
+    font-size: 0.9rem;
+    color: var(--text-muted);
+    line-height: 1.5;
+    margin-bottom: var(--spacing-md);
+    padding: 0 var(--spacing-sm);
+}
+
+/* --- Content & Feed --- */
+.detail-container {
+    max-width: 800px;
+    margin: 0 auto;
+}
+
+.feed-list {
+    display: flex;
+    flex-direction: column;
+    gap: var(--spacing-md);
+}
+
+/* Layout for Vote Widget + Content side-by-side */
+.content-wrapper {
+    display: flex;
+    gap: var(--spacing-md);
+}
+
+.vote-section {
+    flex-shrink: 0;
+    padding-top: 4px; /* Align with text visual baseline */
+}
+
+.text-content {
+    flex: 1;
+    min-width: 0; /* Prevents flex overflow */
+}
+
+/* Typography for content */
+.content-body {
+    font-size: 1.1rem;
+    line-height: 1.6;
+    color: var(--text-main);
+    margin-bottom: var(--spacing-md);
+}
+
+.content-footer {
+    border-top: 1px solid var(--border-color);
+    padding-top: var(--spacing-sm);
+    margin-top: var(--spacing-md);
+    font-size: 0.9rem;
+    color: var(--text-muted);
+    display: flex;
+    gap: 5px;
+}
+
+/* --- Question Details --- */
+.detail-headline {
+    font-size: 1.8rem;
+    margin-bottom: 1rem;
+}
+
+.card-highlight {
+    background-color: var(--bg-light);
+}
+
+.answer-meta {
+    margin-top: 0;
+    margin-bottom: 10px;
+}
+
+.answer-body {
+    font-size: 1rem;
+    margin-bottom: 0;
+}
+
+/* --- Topic Tags --- */
+.topic-list {
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--spacing-sm);
+    margin-bottom: var(--spacing-md);
+}
+
+.topic-tag {
+    background-color: #e1ecf4;
+    color: var(--secondary-color);
+    padding: 4px 10px;
+    border-radius: 4px;
+    font-size: 0.85rem;
+    font-weight: 600;
+    text-decoration: none;
+    transition: background-color 0.2s;
+}
+
+.topic-tag:hover {
+    background-color: #d0e2f0;
+}
+
+/* Answer Section */
+.section-header {
+    border-bottom: 2px solid var(--border-color);
+    padding-bottom: var(--spacing-sm);
+    margin-bottom: var(--spacing-lg);
+    font-size: 1.2rem;
+    font-weight: 700;
+    color: var(--text-main);
+}
+
+.empty-state {
+    text-align: center;
+    color: var(--text-muted);
+    font-style: italic;
+    padding: 40px 0;
+}
+
+/* Auth prompt inside detail pages */
+.auth-prompt {
+    padding: var(--spacing-md);
+    background-color: #fff3cd;
+    border: 1px solid #ffeeba;
+    border-radius: var(--border-radius);
+    color: #856404;
+    margin-bottom: var(--spacing-lg);
+}
