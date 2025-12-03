@@ -33,8 +33,13 @@ class MongoDBManager:
     def find_one(self, collection, filter = None):
         return self.db[collection].find_one(filter or {})
 
-    def find_many(self, collection, filter = None, limit = 0):
-        return list(self.db[collection].find(filter or {}).limit(limit))
+    def find_many(self, collection, filter = None, limit = 0, sort = None):
+        cursor = self.db[collection].find(filter or {})   
+        if sort:
+            cursor = cursor.sort(sort)       
+        if limit > 0:
+            cursor = cursor.limit(limit)
+        return list(cursor)
 
     def insert_one(self, collection, document):
         return self.db[collection].insert_one(document).inserted_id
@@ -47,6 +52,9 @@ class MongoDBManager:
 
     def delete_one(self, collection, filter):
         return self.db[collection].delete_one(filter)
+    
+    def count(self, collection, filter = None):
+        return self.db[collection].count_documents(filter or {})
 
     def close(self):
         self.client.close()

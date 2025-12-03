@@ -1,3 +1,5 @@
+{% load static %}
+
 <header class="site-header">
     <a href="/" class="logo">QorA</a>
     
@@ -6,9 +8,19 @@
             <a href="{% url 'ask_question' %}" class="btn btn-primary">Ask Question</a>
             <a href="{% url 'profile' user.username %}" class="btn btn-outline">{{ user.username }}</a>
             
-            <form method="POST" action="{% url 'logout' %}" style="display:inline;">
+            <a href="{% url 'notifications_index' %}" class="btn btn-outline nav-icon-btn" title="Notifications">
+                <img src="{% static 'icons/bell.png' %}" alt="Notifications" class="nav-icon-img">
+                
+                {% if unread_notifications_count > 0 %}
+                    <span class="notification-badge">
+                        {{ unread_notifications_count }}
+                    </span>
+                {% endif %}
+            </a>
+
+            <form method="POST" action="{% url 'logout' %}" class="form-inline">
                 {% csrf_token %}
-                <button type="submit" class="btn btn-sm" style="border:none; background:none; text-decoration:underline;">Logout</button>
+                <button type="submit" class="btn-text">Logout</button>
             </form>
         {% else %}
             <a href="{% url 'login' %}" class="btn btn-outline">Login</a>

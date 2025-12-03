@@ -1,6 +1,7 @@
 from django.db import transaction
 from core.clients import neo4j_client
 from publications.models import Question, Answer, Topic
+from notifications.services.services import create_notification
 from publications.cypher_queries import (
     CREATE_QUESTION_QUERY,
     GET_USER_FEED_QUERY,
@@ -71,6 +72,14 @@ def create_answer(user, question_id, content):
         'answer_id': answer.id,
         'timestamp': answer.timestamp.timestamp()
     })
+
+    create_notification(
+        recipient_id = question.user.id,
+        actor_id = user.id,
+        verb = 'answered_question',
+        target_id = question.id,
+        target_type = 'Question'
+    )
 
     return answer
 

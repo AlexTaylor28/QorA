@@ -1,0 +1,61 @@
+{% extends "layouts/base.html" %}
+{% load static %} {% block title %}Notifications - QorA{% endblock %}
+
+{% block content %}
+<div class="form-container-md">
+    <div class="card">
+        <h1 class="form-header">Notifications</h1>
+        
+        <div class="feed-list">
+            {% for notif in notifications %}
+                <div class="rec-item notification-item {% if not notif.is_read %}unread{% endif %}">
+                    
+                    <div class="rec-info notification-flex">
+                        
+                        <div class="notification-icon">
+                            {% if notif.verb == 'followed_user' %}
+                                <img src="{% static 'icons/user.png' %}" alt="New Follower" class="notification-type-icon">
+                            {% endif %}
+                            
+                            {% if notif.verb == 'answered_question' %}
+                                <img src="{% static 'icons/reply.png' %}" alt="New Answer" class="notification-type-icon">
+                            {% endif %}
+                        </div>
+
+                        <div>
+                            <div class="notification-date">
+                                {{ notif.created_at|date:"M d, H:i" }}
+                            </div>
+                            
+                            <div class="notification-body">
+                                <a href="{% url 'profile' notif.actor.username %}">
+                                    @{{ notif.actor.username }}
+                                </a>
+
+                                {% if notif.verb == 'followed_user' %}
+                                    started following you.
+                                {% elif notif.verb == 'answered_question' %}
+                                    answered your question: 
+                                    {% if notif.target %}
+                                        <a href="{% url 'question_detail' notif.target.id %}" class="link-highlight">
+                                            {{ notif.target.title|truncatewords:8 }}
+                                        </a>
+                                    {% else %}
+                                        <span class="text-muted">(Deleted Question)</span>
+                                    {% endif %}
+                                {% endif %}
+                            </div>
+                        </div>
+                    </div>
+
+                    {% if not notif.is_read %}
+                        <a href="{% url 'notification_mark_read' notif.id %}" class="btn btn-sm btn-outline" title="Mark as read">✓</a>
+                    {% endif %}
+                </div>
+            {% empty %}
+                <p class="empty-state">No notifications yet.</p>
+            {% endfor %}
+        </div>
+    </div>
+</div>
+{% endblock %}

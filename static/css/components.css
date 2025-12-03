@@ -419,3 +419,102 @@
     color: #856404;
     margin-bottom: var(--spacing-lg);
 }
+
+/* --- Notifications --- */
+.notification-item {
+    padding: 10px;
+    border-bottom: 1px solid #eee; /* Light separator */
+    transition: background-color 0.2s ease;
+}
+
+.notification-item.unread {
+    background-color: #f0f7ff; /* Light blue highlight */
+}
+
+.notification-flex {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+}
+
+.notification-icon {
+    font-size: 1.5rem;
+    line-height: 1;
+    flex-shrink: 0;
+}
+
+.notification-date {
+    font-size: 0.85rem;
+    color: var(--text-muted);
+}
+
+.notification-body {
+    margin-top: 2px;
+}
+
+.notification-body a {
+    font-weight: bold;
+}
+
+/* --- Notification Badge --- */
+
+.form-inline {
+    display: inline;
+}
+
+.btn-text {
+    background: none;
+    border: none;
+    padding: 0;
+    font: inherit;
+    text-decoration: underline;
+    cursor: pointer;
+    color: var(--text-main);
+    font-size: 0.9rem; /* Match btn-sm size */
+}
+
+.btn-text:hover {
+    color: var(--primary-hover);
+}
+
+.nav-icon-btn {
+    position: relative;
+    margin-right: var(--spacing-sm);
+    /* Removed font-size since we are using an image now */
+    padding-left: 10px;
+    padding-right: 10px;
+    display: inline-flex; /* Ensures image and badge align nicely */
+    align-items: center;
+    justify-content: center;
+}
+
+/* NEW CLASS: Styles for the custom icon */
+.nav-icon-img {
+    width: 20px;  /* Adjust based on your icon's native size */
+    height: 20px;
+    display: block;
+}
+
+.notification-badge {
+    position: absolute;
+    top: -6px;
+    right: -6px;
+    background-color: #dc3545;
+    color: white;
+    border-radius: 50%;
+    padding: 2px 5px;
+    font-size: 0.65rem;
+    font-weight: 700;
+    line-height: 1;
+    min-width: 18px;
+    text-align: center;
+    border: 2px solid var(--bg-white);
+    box-shadow: 0 1px 2px rgba(0,0,0,0.1);
+}
+
+.notification-type-icon {
+    width: 24px;
+    height: 24px;
+    object-fit: contain;
+    display: block; /* Removes potential inline spacing issues */
+}

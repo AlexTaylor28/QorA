@@ -1,5 +1,6 @@
 from users.models import User
 from core.clients import neo4j_client
+from notifications.services.services import create_notification
 from users.cypher_queries import (
     REGISTER_USER_QUERY,
     FOLLOW_USER_QUERY,
@@ -21,6 +22,12 @@ def follow_user(user_id, target_user_id):
         'user_id': user_id,
         'target_user_id': target_user_id
          })
+    
+    create_notification(
+        recipient_id = target_user_id, 
+        actor_id = user_id, 
+        verb = 'followed_user'
+    )
     
 def unfollow_user(user_id, target_user_id):
     neo4j_client.execute_write(UNFOLLOW_USER_QUERY, {
