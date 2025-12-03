@@ -30,28 +30,25 @@ from publications.services.services import (
 
 @login_required
 def create_question_view(request):
-    if request.method == 'POST':
-        form = QuestionForm(request.POST)
-        if form.is_valid():
-            data = form.cleaned_data
-            topic_ids = [t.id for t in data['topics']]
 
-            try:
-                create_question(
-                    user = request.user,
-                    title = data['title'],
-                    content = data['content'],
-                    topic_ids = topic_ids
-                )
-                
-            except Exception as e:
-                messages.error(request, f"Error posting question: {e}")
-            else:
-                messages.success(request, "Question asked successfully!")
-                return redirect('home')
-    else:
-        form = QuestionForm()
+    form = QuestionForm(request.POST or None)
+
+    if request.method == 'POST' and form.is_valid():
+        data = form.cleaned_data
+        topic_ids = [t.id for t in data['topics']]
+
+        create_question(
+            user = request.user,
+            title = data['title'],
+            content = data['content'],
+            topic_ids = topic_ids
+        )
+        
+        messages.success(request, "Question asked successfully!")
+        return redirect('home')
+
     return render(request, 'publications/ask_question.html', {'form': form})
+
 
 @login_required
 @require_POST

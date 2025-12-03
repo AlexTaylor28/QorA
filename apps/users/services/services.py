@@ -12,8 +12,6 @@ from users.cypher_queries import (
     GET_FOLLOWING_COUNT_QUERY,
 )
 
-#TODO: MIRAR SI NECESITO DEVOLVER ALGO EN LAS QUERIES DE READ
-
 def create_user_in_neo4j(user_id):
     neo4j_client.execute_write(REGISTER_USER_QUERY, { 'user_id': user_id })  
     
